@@ -10,10 +10,11 @@ pipeline {
         // DOCKER_HUB_USERNAME = 'thato'
 
         REMOTE_USER = 'ubuntu'  // Replace with your EC2 instance's username
-        SERVER_IP = '34.228.36.118'  // Replace this your EC2 instance's IP
-        SSH_CREDENTIALS_ID = 'servekey'
+        SERVER_IP = '18.233.170.3'  // Replace this your EC2 instance's IP
+        SSH_CREDENTIALS_ID = 'SonarQube'
+        GITHUB_REPO_URL = "https://github.com/SthandwaKay/SonarQube_project.git"
 
-        CONTAINER_NAME = 'laravel_app'  // Replace with your container name
+        // CONTAINER_NAME = 'laravel_app'  // Replace with your container name
     }
 
     stages {
@@ -63,27 +64,21 @@ pipeline {
         //     }
         //}
 
-        stage('Deploy to EC2') {
+               stage('Deploy Static Website') {
             steps {
                 script {
-                    // Log in to EC2 instance using SSH key
+                    // Ensure remote directory exists
+                   // sh "ssh -i \$SSH_KEY ${REMOTE_USER}@${SERVER_IP} 'mkdir -p /var/www/html/'"
+
+                    // Deploy the code tohhhh the server using scp
                     withCredentials([file(credentialsId: SSH_CREDENTIALS_ID, variable: 'SSH_KEY')]) {
-                        // sh "chmod 600 \$SSH_KEY"
-                        sh "ssh -i \$SSH_KEY -o StrictHostKeyChecking=no ${REMOTE_USER}@${SERVER_IP} echo Successfully logged in"
-                        // sh "ssh -i \$SSH_KEY ${REMOTE_USER}@${SERVER_IP} 'echo Successfully logged in'"
-                        
-                        // Stop and remove existing container
-                        // sh "ssh -i \$SSH_KEY -o StrictHostKeyChecking=no ${REMOTE_USER}@${SERVER_IP} echo Successfully logged in"
-                
-                        // Stop and remove existing container
-                        sh "ssh -i \$SSH_KEY ${REMOTE_USER}@${SERVER_IP} 'docker stop ${CONTAINER_NAME} || true'"
-                        sh "ssh -i \$SSH_KEY ${REMOTE_USER}@${SERVER_IP} 'docker rm ${CONTAINER_NAME} || true'"
-                        
-                        // Pull the latest image
-                        sh "ssh -i \$SSH_KEY ${REMOTE_USER}@${SERVER_IP} 'docker pull ${registry}/${DOCKER_HUB_USERNAME}/${imagename}:${imageTag}'"
-                        
-                        // Run a new container
-                        sh "ssh -i \$SSH_KEY ${REMOTE_USER}@${SERVER_IP} 'docker run -d --name ${CONTAINER_NAME} -p 8000:8000 ${registry}/${DOCKER_HUB_USERNAME}/${imagename}:${imageTag}'"
+                        try {
+                            sh "scp -i \$SSH_KEY -o StrictHostKeyChecking=no -r ./ ${REMOTE_USER}@${SERVER_IP}:/var/www/html/"
+                            echo 'Deployment successful!'
+                        } catch (Exception e) {
+                            echo "Deployment failed: ${e.message}"
+                            error 'Deployment failed!'
+                        }
                     }
                 }
             }
