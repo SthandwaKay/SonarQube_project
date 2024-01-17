@@ -7,10 +7,10 @@ pipeline {
         // imagename = 'laravel'
         // registry = 'docker.io'
         // imageTag = 'latest'
-        // DOCKER_HUB_USERNAME = 'mutuwa12'
+        // DOCKER_HUB_USERNAME = 'thato'
 
         REMOTE_USER = 'ubuntu'  // Replace with your EC2 instance's username
-        SERVER_IP = '34.228.36.118'  // Replace with your EC2 instance's IP
+        SERVER_IP = '34.228.36.118'  // Replace this your EC2 instance's IP
         SSH_CREDENTIALS_ID = 'servekey'
 
         CONTAINER_NAME = 'laravel_app'  // Replace with your container name
