@@ -28,7 +28,7 @@ pipeline {
         stage('SonarQube Analysis') {
             steps {
                 script {
-                    sh "${SONAR_SCANNER_HOME}/bin/sonar-scanner -Dsonar.projectKey=SonarQube -Dsonar.sources=. -Dsonar.host.url=http://44.210.143.89:9000 -Dsonar.login=sqp_9a143b01fb3606dd4118137c59a34d24269a28be"
+                    sh "${SONAR_SCANNER_HOME}/bin/sonar-scanner -Dsonar.projectKey=SonarQube -Dsonar.sources=. -Dsonar.host.url=http://18.233.170.3:9000 -Dsonar.login=sqp_9a143b01fb3606dd4118137c59a34d24269a28be"
                 }
             }
         }
