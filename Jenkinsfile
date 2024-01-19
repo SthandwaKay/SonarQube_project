@@ -10,7 +10,7 @@ pipeline {
         // DOCKER_HUB_USERNAME = 'thato'
 
         REMOTE_USER = 'ubuntu'  // Replace with your EC2 instance's username
-        SERVER_IP = '18.233.170.3'  // Replace this your EC2 instance's IP
+        SERVER_IP = '35.175.197.152'  // Replace this your EC2 instance's IP
         SSH_CREDENTIALS_ID = 'SonarQube'
         GITHUB_REPO_URL = "https://github.com/SthandwaKay/SonarQube_project.git"
 
@@ -29,7 +29,7 @@ pipeline {
         stage('SonarQube Analysis') {
             steps {
                 script {
-                    sh "${SONAR_SCANNER_HOME}/bin/sonar-scanner -Dsonar.projectKey=SonarQube -Dsonar.sources=. -Dsonar.host.url=http://18.233.170.3:9000 -Dsonar.login=sqp_9a143b01fb3606dd4118137c59a34d24269a28be"
+                    sh "${SONAR_SCANNER_HOME}/bin/sonar-scanner -Dsonar.projectKey=SonarQube -Dsonar.sources=. -Dsonar.host.url=http://100.25.159.113:9000 -Dsonar.login=sqp_f7f09e8087e6aee20b962577f55298daa7e6e578"
                 }
             }
         }
