@@ -11,7 +11,7 @@ pipeline {
 
         REMOTE_USER = 'ubuntu'  // Replace with your EC2 instance's username
         SERVER_IP = '35.175.197.152'  // Replace this your EC2 instance's IP
-        SSH_CREDENTIALS_ID = 'SonarQube'
+        SSH_CREDENTIALS_ID = 'Sonar-Qube'
         GITHUB_REPO_URL = "https://github.com/SthandwaKay/SonarQube_project.git"
 
         // CONTAINER_NAME = 'laravel_app'  // Replace with your container name
